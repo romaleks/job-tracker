@@ -1,10 +1,21 @@
 import bcrypt from 'bcrypt'
 import { Response } from 'express'
 import jwt from 'jsonwebtoken'
-import User from '../models/User'
+import User, { IUser } from '../models/User'
 import { LoginUserInput, RegisterUserInput } from '../schemas/user.schema'
 import { ValidatedRequest } from '../types/express'
 import config from '../utils/config'
+
+const createToken = (user: IUser) => {
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
+
+  return jwt.sign(userForToken, config.SECRET, {
+    expiresIn: 60 * 60 * 24, // expires in a day
+  })
+}
 
 export const createUser = async (req: ValidatedRequest, res: Response) => {
   const { username, password, email } = req.validated?.body as RegisterUserInput
@@ -15,10 +26,10 @@ export const createUser = async (req: ValidatedRequest, res: Response) => {
       .json({ error: 'username must be at least 5 characters long' })
   }
 
-  if (password.length < 8) {
+  if (password.length < 6) {
     return res
       .status(400)
-      .json({ error: 'password must be at least 8 characters long' })
+      .json({ error: 'password must be at least 6 characters long' })
   }
 
   const saltRounds = 10
@@ -30,16 +41,18 @@ export const createUser = async (req: ValidatedRequest, res: Response) => {
     passwordHash,
   })
 
-  return res.status(201).json(newUser)
+  const token = createToken(newUser)
+
+  return res.status(201).json({ token, newUser })
 }
 
 export const loginUser = async (req: ValidatedRequest, res: Response) => {
   const { email, password } = req.validated?.body as LoginUserInput
 
-  if (password.length < 8) {
+  if (password.length < 6) {
     return res
       .status(400)
-      .json({ error: 'password must be at least 8 characters long' })
+      .json({ error: 'password must be at least 6 characters long' })
   }
 
   const user = await User.findOne({ email })
@@ -52,18 +65,9 @@ export const loginUser = async (req: ValidatedRequest, res: Response) => {
     })
   }
 
-  const userForToken = {
-    username: user.username,
-    id: user._id,
-  }
+  const token = createToken(user)
 
-  const token = jwt.sign(userForToken, config.SECRET, {
-    // expiresIn: 60 * 60,
-  })
-
-  return res
-    .status(200)
-    .json({ token, username: user.username, email: user.email })
+  return res.status(200).json({ token, user })
 }
 
 export default { createUser }
