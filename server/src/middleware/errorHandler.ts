@@ -1,6 +1,28 @@
 import { ErrorRequestHandler } from 'express'
 
+interface MongoDuplicateKeyError extends Error {
+  code?: number
+  keyPattern?: Record<string, unknown>
+}
+
+const isMongoDuplicateKeyError = (
+  error: Error,
+): error is MongoDuplicateKeyError => {
+  const maybeMongoError = error as MongoDuplicateKeyError
+  return maybeMongoError.code === 11000
+}
+
 const errorHandler: ErrorRequestHandler = (error: Error, _req, res, next) => {
+  if (isMongoDuplicateKeyError(error)) {
+    const duplicateEmail = Boolean(error.keyPattern?.email)
+
+    if (duplicateEmail) {
+      return res.status(409).json({ error: 'email already in use' })
+    }
+
+    return res.status(409).json({ error: 'duplicate value' })
+  }
+
   if (error.name === 'ValidationError') {
     return res.status(400).json({ error: error.message })
   }

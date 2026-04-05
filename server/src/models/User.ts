@@ -9,7 +9,7 @@ export interface IUser extends Omit<RegisterUserInput, 'password'>, Document {
 
 const UserSchema: Schema = new Schema(
   {
-    username: { type: String, required: true, unique: true, minLength: 5 },
+    username: { type: String, required: true, minLength: 5 },
     email: { type: String, required: true, unique: true },
     passwordHash: { type: String, required: true },
     jobs: {
