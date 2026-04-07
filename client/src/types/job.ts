@@ -23,3 +23,5 @@ export interface Job {
   createdAt: string
   updatedAt: string
 }
+
+export type JobInput = Omit<Job, 'id' | 'createdBy' | 'createdAt' | 'updatedAt'>

@@ -1,3 +1,4 @@
+import JobForm from '@/components/layout/JobForm'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -59,9 +60,11 @@ export function JobCard({ job }: JobCardProps) {
         </p>
       </CardContent>
       <CardFooter className="grid grid-cols-2 gap-2">
-        <Button variant="outline" size="sm" className="w-full">
-          Edit
-        </Button>
+        <JobForm action="edit" job={job}>
+          <Button variant="outline" size="sm" className="w-full">
+            Edit
+          </Button>
+        </JobForm>
         <RemoveButton
           handleClick={handleDelete}
           isPending={deleteMutation.isPending}

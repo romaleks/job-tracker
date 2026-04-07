@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from 'mongoose'
-import { CreateJobInput } from '../schemas/job.schema'
+import { SaveJobInput } from '../schemas/job.schema'
 import { Status, Type } from '../types/job'
 
-export interface IJob extends CreateJobInput, Document {
+export interface IJob extends SaveJobInput, Document {
   createdBy: mongoose.Types.ObjectId
   createdAt: Date
   updatedAt: Date

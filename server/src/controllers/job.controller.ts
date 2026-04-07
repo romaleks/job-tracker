@@ -1,10 +1,6 @@
 import { Request, Response } from 'express'
 import Job from '../models/Job'
-import {
-  CreateJobInput,
-  GetJobsQuery,
-  UpdateJobInput,
-} from '../schemas/job.schema'
+import { GetJobsQuery, SaveJobInput } from '../schemas/job.schema'
 import { AuthRequest } from '../types/express'
 
 export const getAllJobs = async (_req: Request, res: Response) => {
@@ -52,7 +48,7 @@ export const getJobById = async (req: AuthRequest, res: Response) => {
 }
 
 export const createJob = async (req: AuthRequest, res: Response) => {
-  const body = req.validated?.body as CreateJobInput
+  const body = req.validated?.body as SaveJobInput
 
   const newJob = await Job.create({
     ...body,
@@ -63,7 +59,7 @@ export const createJob = async (req: AuthRequest, res: Response) => {
 }
 
 export const updateJob = async (req: AuthRequest, res: Response) => {
-  const body = req.validated?.body as UpdateJobInput
+  const body = req.validated?.body as SaveJobInput
 
   const job = await Job.findById(req.params.id)
 
@@ -74,10 +70,10 @@ export const updateJob = async (req: AuthRequest, res: Response) => {
   if (req.user?._id.toString() !== job.createdBy.toString()) {
     return res
       .status(401)
-      .json({ error: 'only creator of the job can change it' })
+      .json({ error: 'only creator of the job can edit it' })
   }
 
-  job.status = body.status
+  Object.assign(job, body)
   const savedJob = await job.save()
 
   return res.status(200).json(savedJob)

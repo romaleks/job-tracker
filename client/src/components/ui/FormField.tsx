@@ -1,7 +1,7 @@
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 
-interface AuthFormFieldProps {
+interface FormFieldProps {
   label: string
   name: string
   value: string
@@ -14,7 +14,7 @@ interface AuthFormFieldProps {
   autoComplete?: string
 }
 
-function AuthFormField({
+function FormField({
   label,
   name,
   value,
@@ -25,7 +25,7 @@ function AuthFormField({
   placeholder,
   type = 'text',
   autoComplete = 'off',
-}: AuthFormFieldProps) {
+}: FormFieldProps) {
   return (
     <Field data-invalid={isInvalid}>
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
@@ -45,4 +45,4 @@ function AuthFormField({
   )
 }
 
-export default AuthFormField
+export default FormField

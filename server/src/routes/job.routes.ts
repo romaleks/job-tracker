@@ -9,11 +9,7 @@ import {
 } from '../controllers/job.controller'
 import { userChecker } from '../middleware/authMiddleware'
 import { validate } from '../middleware/validateResource'
-import {
-  CreateJobSchema,
-  GetJobsQuerySchema,
-  UpdateJobSchema,
-} from '../schemas/job.schema'
+import { GetJobsQuerySchema, SaveJobSchema } from '../schemas/job.schema'
 
 const router = Router()
 
@@ -23,9 +19,9 @@ router.get('/user', [userChecker, validate(GetJobsQuerySchema)], getUserJobs)
 
 router.get('/:id', getJobById)
 
-router.post('/', [userChecker, validate(CreateJobSchema)], createJob)
+router.post('/', [userChecker, validate(SaveJobSchema)], createJob)
 
-router.put('/:id', [userChecker, validate(UpdateJobSchema)], updateJob)
+router.put('/:id', [userChecker, validate(SaveJobSchema)], updateJob)
 
 router.delete('/:id', userChecker, removeJob)
 

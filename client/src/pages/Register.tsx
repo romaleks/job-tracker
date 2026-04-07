@@ -1,4 +1,4 @@
-import AuthFormField from '@/components/auth/AuthFormField'
+import FormField from '@/components/ui/FormField'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -114,7 +114,7 @@ function Register() {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
-                    <AuthFormField
+                    <FormField
                       label="Username"
                       name={field.name}
                       value={field.state.value}
@@ -139,7 +139,7 @@ function Register() {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
-                    <AuthFormField
+                    <FormField
                       label="Email"
                       name={field.name}
                       value={field.state.value}
@@ -165,7 +165,7 @@ function Register() {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
-                    <AuthFormField
+                    <FormField
                       label="Password"
                       name={field.name}
                       value={field.state.value}
