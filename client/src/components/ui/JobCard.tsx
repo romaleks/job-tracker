@@ -8,6 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import JobDetails from '@/components/ui/JobDetails'
+
 import RemoveButton from '@/components/ui/RemoveButton'
 import jobService from '@/services/jobService'
 import type { Job } from '@/types/job'
@@ -59,7 +61,8 @@ export function JobCard({ job }: JobCardProps) {
           Applied on: {formatJobDate(job.createdAt)}
         </p>
       </CardContent>
-      <CardFooter className="grid grid-cols-2 gap-2">
+      <CardFooter className="grid grid-cols-3 gap-2">
+        <JobDetails job={job} />
         <JobForm action="edit" job={job}>
           <Button variant="outline" size="sm" className="w-full">
             Edit

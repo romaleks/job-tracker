@@ -112,7 +112,7 @@ export function JobForm({
         ...value,
         status: value.status as Status,
         type: value.type as Type,
-        salary: Number(value.salary),
+        salary: value.salary ? Number(value.salary) : undefined,
       }
 
       if (action === 'edit' && job) {
@@ -197,7 +197,7 @@ export function JobForm({
                   return (
                     <FormField
                       type="number"
-                      label="Salary"
+                      label="Salary ($)"
                       name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
