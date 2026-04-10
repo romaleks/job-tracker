@@ -62,8 +62,8 @@ function Register() {
       const serverMessage = error.response?.data?.error
 
       if (error.response?.status === 409) {
-        setAuthError('This email is already in use.')
-        return
+        if (error.response.data.error)
+          return setAuthError(error.response.data.error)
       }
 
       setAuthError(serverMessage || 'Unable to register. Please try again.')

@@ -14,7 +14,12 @@ const isMongoDuplicateKeyError = (
 
 const errorHandler: ErrorRequestHandler = (error: Error, _req, res, next) => {
   if (isMongoDuplicateKeyError(error)) {
+    const duplicateUsername = Boolean(error.keyPattern?.username)
     const duplicateEmail = Boolean(error.keyPattern?.email)
+
+    if (duplicateUsername) {
+      return res.status(409).json({ error: 'username already in use' })
+    }
 
     if (duplicateEmail) {
       return res.status(409).json({ error: 'email already in use' })

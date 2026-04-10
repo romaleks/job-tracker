@@ -43,7 +43,7 @@ export const createUser = async (req: ValidatedRequest, res: Response) => {
 
   const token = createToken(newUser)
 
-  return res.status(201).json({ token, newUser })
+  return res.status(201).json({ token, user: newUser })
 }
 
 export const loginUser = async (req: ValidatedRequest, res: Response) => {

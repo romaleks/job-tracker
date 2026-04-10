@@ -4,24 +4,62 @@ import JobCardSkeleton from '@/components/ui/JobCardSkeleton'
 import JobFilter from '@/components/ui/JobFilter'
 import JobPagination from '@/components/ui/JobPagination'
 import { Button } from '@/components/ui/shadcn/button'
-import { useIsMobile } from '@/hooks/use-mobile'
 import { useDebounce } from '@/hooks/useDebounce'
 import jobService, { type UserJobsResponse } from '@/services/jobService'
 import { Status } from '@/types/job'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const MOBILE_PAGE_SIZE = 4
-const DESKTOP_PAGE_SIZE = 8
+const getPageSizeByWidth = (width: number) => {
+  if (width >= 1536) {
+    return 16
+  }
+
+  if (width >= 1280) {
+    return 9
+  }
+
+  if (width >= 640) {
+    return 6
+  }
+
+  return 4
+}
 
 const Jobs = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500)
   const [status, setStatus] = useState<Status | 'all'>('all')
-  const isMobile = useIsMobile()
-  const pageSize = isMobile ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE
+  const [pageSize, setPageSize] = useState(() => {
+    if (typeof window === 'undefined') {
+      return 4
+    }
+
+    return getPageSizeByWidth(window.innerWidth)
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      const nextPageSize = getPageSizeByWidth(window.innerWidth)
+
+      setPageSize((currentPageSize) => {
+        if (currentPageSize === nextPageSize) {
+          return currentPageSize
+        }
+
+        setPage(1)
+        return nextPageSize
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const { data, isLoading, isFetching } = useQuery<UserJobsResponse>({
     queryKey: ['jobs', { page, pageSize, search: debouncedSearch, status }],
