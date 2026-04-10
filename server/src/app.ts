@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose'
 import { tokenExtractor, userExtractor } from './middleware/authMiddleware'
@@ -22,6 +23,12 @@ mongoose
   .catch((error) => {
     console.log('error connecting to MongoDB:', error.message)
   })
+
+app.use(
+  cors({
+    origin: 'https://your-frontend.vercel.app',
+  }),
+)
 
 app.use(express.json())
 app.use(requestLogger)

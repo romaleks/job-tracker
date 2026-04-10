@@ -3,7 +3,7 @@ import { logout } from '../reducers/authReducer'
 import store from './store'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://job-tracker-9ogn.onrender.com/api',
 })
 
 api.interceptors.request.use((config) => {
