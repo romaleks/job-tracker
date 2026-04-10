@@ -1,4 +1,6 @@
-import { Button } from '@/components/ui/button'
+import FormField from '@/components/ui/FormField'
+import FormSelect from '@/components/ui/FormSelect'
+import { Button } from '@/components/ui/shadcn/button'
 import {
   Dialog,
   DialogClose,
@@ -8,10 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { FieldError, FieldGroup } from '@/components/ui/field'
-import FormField from '@/components/ui/FormField'
-import FormSelect from '@/components/ui/FormSelect'
+} from '@/components/ui/shadcn/dialog'
+import { FieldError, FieldGroup } from '@/components/ui/shadcn/field'
 import jobService from '@/services/jobService'
 import { Status, Type, type Job, type JobInput } from '@/types/job'
 import { useForm } from '@tanstack/react-form'

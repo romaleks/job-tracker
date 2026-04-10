@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/shadcn/button'
 import {
   Dialog,
   DialogContent,
@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@/components/ui/shadcn/dialog'
 import type { Job } from '@/types/job'
 import formatJobDate from '@/utils/formatJobDate'
 import { EyeIcon } from 'lucide-react'

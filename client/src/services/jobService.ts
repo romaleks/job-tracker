@@ -1,5 +1,5 @@
 import api from '@/config/axios'
-import type { Job, JobInput } from '@/types/job'
+import type { Job, JobInput, Status } from '@/types/job'
 
 export interface UserJobsResponse {
   jobs: Job[]
@@ -7,8 +7,20 @@ export interface UserJobsResponse {
   totalJobs: string
 }
 
-const getUserJobs = async () => {
-  const response = await api.get<UserJobsResponse>('/jobs/user')
+export interface UserJobsQuery {
+  search?: string
+  status?: Status | 'all'
+  page?: number
+  limit?: number
+}
+
+const getUserJobs = async (query: UserJobsQuery = {}) => {
+  const params = {
+    ...query,
+    status: query.status === 'all' ? undefined : query.status,
+  }
+
+  const response = await api.get<UserJobsResponse>('/jobs/user', { params })
   return response.data
 }
 

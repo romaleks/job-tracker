@@ -1,13 +1,13 @@
 import JobForm from '@/components/layout/JobForm'
-import { Button } from '@/components/ui/button'
+import JobDetails from '@/components/ui/JobDetails'
+import { Button } from '@/components/ui/shadcn/button'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import JobDetails from '@/components/ui/JobDetails'
+} from '@/components/ui/shadcn/card'
 import StatusBadge from '@/components/ui/StatusBadge'
 
 import RemoveButton from '@/components/ui/RemoveButton'

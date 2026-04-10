@@ -1,5 +1,5 @@
-import { Field, FieldError, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+import { Field, FieldError, FieldLabel } from '@/components/ui/shadcn/field'
+import { Input } from '@/components/ui/shadcn/input'
 
 interface FormFieldProps {
   label: string

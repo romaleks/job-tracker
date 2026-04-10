@@ -1,6 +1,6 @@
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarProvider } from '@/components/ui/shadcn/sidebar'
 import { Outlet } from 'react-router-dom'
 
 const MainLayout = () => {

@@ -1,4 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/shadcn/card'
 import StatusBadge from '@/components/ui/StatusBadge'
 import { cn } from '@/lib/utils'
 import { Status } from '@/types/job'

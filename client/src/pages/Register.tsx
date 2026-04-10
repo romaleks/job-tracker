@@ -1,5 +1,5 @@
 import FormField from '@/components/ui/FormField'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/shadcn/button'
 import {
   Card,
   CardAction,
@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { FieldError, FieldGroup } from '@/components/ui/field'
+} from '@/components/ui/shadcn/card'
+import { FieldError, FieldGroup } from '@/components/ui/shadcn/field'
 import { useAppDispatch } from '@/hooks/storeHooks'
 import { setCredentials } from '@/reducers/authReducer'
 import authService from '@/services/authService'

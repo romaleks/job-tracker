@@ -3,7 +3,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from '@/components/ui/item'
+} from '@/components/ui/shadcn/item'
 import {
   Sidebar,
   SidebarContent,
@@ -14,11 +14,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from '@/components/ui/shadcn/sidebar'
 import { useAppSelector } from '@/hooks/storeHooks'
 
 import { Briefcase, Home } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const data = {
   nav: [
@@ -28,9 +28,13 @@ const data = {
 }
 
 export function AppSidebar() {
+  const { pathname } = useLocation()
   const user = useAppSelector((state) => state.auth.user)
   const username = user?.username ?? 'Guest'
   const email = user?.email ?? 'Not signed in'
+
+  const isRouteActive = (routePath: string) =>
+    routePath === '/' ? pathname === '/' : pathname.startsWith(routePath)
 
   return (
     <Sidebar>
@@ -45,7 +49,10 @@ export function AppSidebar() {
             <SidebarMenu>
               {data.nav.map((item) => (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isRouteActive(item.link)}
+                  >
                     <Link to={item.link}>
                       <item.icon />
                       <span>{item.name}</span>

@@ -1,3 +1,4 @@
+import DashboardSkeleton from '@/components/ui/DashboardSkeleton'
 import JobChart from '@/components/ui/JobChart'
 import StatusCard from '@/components/ui/StatusCard'
 import type { UserStatsResponse } from '@/services/statsService'
@@ -12,7 +13,7 @@ const Dashboard = () => {
   })
 
   if (query.isLoading) {
-    return <div>loading statistics...</div>
+    return <DashboardSkeleton />
   }
 
   const stats = query.data?.stats ?? null
