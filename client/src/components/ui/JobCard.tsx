@@ -1,5 +1,4 @@
 import JobForm from '@/components/layout/JobForm'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -9,6 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import JobDetails from '@/components/ui/JobDetails'
+import StatusBadge from '@/components/ui/StatusBadge'
 
 import RemoveButton from '@/components/ui/RemoveButton'
 import jobService from '@/services/jobService'
@@ -34,26 +34,14 @@ export function JobCard({ job }: JobCardProps) {
     deleteMutation.mutate(job.id)
   }
 
-  let cn = ''
-  switch (job.status) {
-    case 'offer':
-      cn = 'bg-green-600'
-      break
-    case 'interview':
-      cn = 'bg-amber-300'
-      break
-  }
-
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{job.position}</CardTitle>
-        <Badge
-          variant={job.status === 'rejected' ? 'destructive' : 'default'}
-          className={cn}
-        >
-          {job.status}
-        </Badge>
+        <StatusBadge
+          status={job.status}
+          className="h-6 px-2.5 text-xs font-medium"
+        />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{job.company}</div>

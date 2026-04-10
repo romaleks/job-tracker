@@ -1,14 +1,14 @@
 import api from '@/config/axios'
 import type { Job, JobInput } from '@/types/job'
 
-export interface userJobsResponse {
+export interface UserJobsResponse {
   jobs: Job[]
   numOfPages: string
   totalJobs: string
 }
 
 const getUserJobs = async () => {
-  const response = await api.get<userJobsResponse>('/jobs/user')
+  const response = await api.get<UserJobsResponse>('/jobs/user')
   return response.data
 }
 

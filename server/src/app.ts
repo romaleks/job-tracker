@@ -6,6 +6,7 @@ import requestLogger from './middleware/requestLogger'
 import unknownEndpoint from './middleware/unknownEndpoint'
 import authRouter from './routes/auth.routes'
 import jobsRouter from './routes/job.routes'
+import statsRouter from './routes/stats.routes'
 import config from './utils/config'
 import logger from './utils/logger'
 
@@ -28,6 +29,7 @@ app.use(tokenExtractor)
 
 app.use('/api/auth', authRouter)
 app.use('/api/jobs', userExtractor, jobsRouter)
+app.use('/api/stats', userExtractor, statsRouter)
 
 app.use(unknownEndpoint)
 app.use(errorHandler)

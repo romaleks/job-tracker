@@ -1,12 +1,12 @@
 import JobForm from '@/components/layout/JobForm'
 import { Button } from '@/components/ui/button'
 import JobCard from '@/components/ui/JobCard'
-import jobService, { type userJobsResponse } from '@/services/jobService'
+import jobService, { type UserJobsResponse } from '@/services/jobService'
 import { useQuery } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
 
 const Jobs = () => {
-  const query = useQuery<userJobsResponse>({
+  const query = useQuery<UserJobsResponse>({
     queryKey: ['jobs'],
     queryFn: jobService.getUserJobs,
   })
