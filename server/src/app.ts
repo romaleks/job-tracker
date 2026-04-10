@@ -26,7 +26,8 @@ mongoose
 
 app.use(
   cors({
-    origin: 'https://your-frontend.vercel.app',
+    origin: 'https://job-tracker-tau-ten.vercel.app',
+    credentials: true,
   }),
 )
 
