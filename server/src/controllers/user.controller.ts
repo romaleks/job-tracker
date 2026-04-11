@@ -12,7 +12,7 @@ const createToken = (user: IUser) => {
     id: user._id,
   }
 
-  return jwt.sign(userForToken, config.SECRET, {
+  return jwt.sign(userForToken, config.JWT_SECRET, {
     expiresIn: 60 * 60 * 24, // expires in a day
   })
 }

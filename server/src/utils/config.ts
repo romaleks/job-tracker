@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const requireEnv = (
-  name: 'PORT' | 'MONGODB_URI' | 'TEST_MONGODB_URI' | 'SECRET',
+  name: 'PORT' | 'MONGODB_URI' | 'TEST_MONGODB_URI' | 'JWT_SECRET',
 ): string => {
   const value = process.env[name]
   if (!value) {
@@ -15,6 +15,6 @@ const MONGODB_URI =
   process.env.NODE_ENV === 'test'
     ? requireEnv('TEST_MONGODB_URI')
     : requireEnv('MONGODB_URI')
-const SECRET = requireEnv('SECRET')
+const JWT_SECRET = requireEnv('JWT_SECRET')
 
-export default { PORT, MONGODB_URI, SECRET }
+export default { PORT, MONGODB_URI, JWT_SECRET }

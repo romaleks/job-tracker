@@ -25,7 +25,7 @@ export const userExtractor = async (
   next: NextFunction,
 ) => {
   if (req.token) {
-    const decoded = jwt.verify(req.token, config.SECRET)
+    const decoded = jwt.verify(req.token, config.JWT_SECRET)
     const decodedToken =
       typeof decoded === 'string'
         ? null
