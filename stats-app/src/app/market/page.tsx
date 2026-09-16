@@ -12,6 +12,11 @@ import {
 
 export const revalidate = 7200
 
+const serverUrl =
+  process.env.SERVER_INTERNAL_URL ?? 'https://job-tracker-9ogn.onrender.com'
+const clientUrl =
+  process.env.NEXT_PUBLIC_CLIENT_URL ?? 'https://job-tracker-tau-ten.vercel.app'
+
 export const metadata: Metadata = {
   title: 'Job Market Overview | Job Tracker',
   description:
@@ -56,15 +61,9 @@ const directionLabels: Record<string, string> = {
 }
 
 export async function getMarketOverview(): Promise<MarketOverviewData> {
-  const baseUrl = process.env.SERVER_INTERNAL_URL
-
-  if (!baseUrl) {
-    return fallbackData
-  }
-
   try {
     const response = await fetch(
-      `${baseUrl.replace(/\/$/, '')}/api/public/market-overview`,
+      `${serverUrl.replace(/\/$/, '')}/api/public/market-overview`,
       { next: { revalidate: 7200 } },
     )
 
@@ -105,7 +104,7 @@ function isMarketOverviewData(value: unknown): value is MarketOverviewData {
 }
 
 function formatNumber(value: number) {
-  return new Intl.NumberFormat('ru-RU').format(value)
+  return new Intl.NumberFormat('en-US').format(value)
 }
 
 export default async function MarketPage() {
@@ -115,15 +114,18 @@ export default async function MarketPage() {
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b-2 bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 lg:px-8">
-          <Link href="/" className="text-xl font-semibold tracking-tight">
+          <Link
+            href={clientUrl}
+            className="text-xl font-semibold tracking-tight"
+          >
             Job Tracker
           </Link>
           <nav className="flex items-center gap-3">
             <Button variant="outline" asChild>
-              <Link href="/login">Sign in</Link>
+              <Link href={`${clientUrl}/login`}>Sign in</Link>
             </Button>
-            <Button>
-              <Link href="/register">Create account</Link>
+            <Button asChild>
+              <Link href={`${clientUrl}/register`}>Create account</Link>
             </Button>
           </nav>
         </div>
@@ -198,8 +200,8 @@ export default async function MarketPage() {
                   Create your profile and keep every application in one place.
                 </p>
               </div>
-              <Button size="lg">
-                <Link href="/register">Get started</Link>
+              <Button size="lg" asChild>
+                <Link href={`${clientUrl}/register`}>Get started</Link>
               </Button>
             </div>
           </CardContent>
