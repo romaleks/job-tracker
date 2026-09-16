@@ -124,7 +124,7 @@ export default async function MarketPage() {
             <Button variant="outline" asChild>
               <Link href={`${clientUrl}/login`}>Sign in</Link>
             </Button>
-            <Button asChild>
+            <Button>
               <Link href={`${clientUrl}/register`}>Create account</Link>
             </Button>
           </nav>
@@ -200,7 +200,7 @@ export default async function MarketPage() {
                   Create your profile and keep every application in one place.
                 </p>
               </div>
-              <Button size="lg" asChild>
+              <Button size="lg">
                 <Link href={`${clientUrl}/register`}>Get started</Link>
               </Button>
             </div>
